@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1029473677920",
+    "project_id": "tennismatch-8182a",
+    "storage_bucket": "tennismatch-8182a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029473677920:android:30eb35b02704f320a5c905",
+        "android_client_info": {
+          "package_name": "com.example.tennis_match_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029473677920-r010uvr1p266qf3an5e41cq2hbkc3u0p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCitkaeOK2q03SWrpKadGZTKV6XXnK0inI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029473677920-r010uvr1p266qf3an5e41cq2hbkc3u0p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
