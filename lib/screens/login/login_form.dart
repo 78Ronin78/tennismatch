@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tennis_match_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:tennis_match_app/blocs/login_bloc/login_bloc.dart';
-import 'package:tennis_match_app/screens/register/register_screen.dart';
 import 'package:tennis_match_app/widgets/button_widgets.dart';
-import 'package:tennis_match_app/widgets/gradient_button.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -91,9 +89,10 @@ class _LoginFormState extends State<LoginForm> {
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     decoration: BoxDecoration(
-                      color: Colors.white12,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
+                        color: Colors.white12,
+                        borderRadius: BorderRadius.circular(15),
+                        border:
+                            Border.all(width: 1.0, color: state.validColor)),
                     child: TextFormField(
                       autovalidateMode: AutovalidateMode.always,
                       controller: _emailController,
@@ -109,6 +108,7 @@ class _LoginFormState extends State<LoginForm> {
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
                       validator: (_) {
+                        //brdEmailColor = Colors.red;
                         return !state.isEmailValid ? 'Неверный Email' : null;
                       },
                     ),
@@ -119,9 +119,10 @@ class _LoginFormState extends State<LoginForm> {
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     decoration: BoxDecoration(
-                      color: Colors.white12,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
+                        color: Colors.white12,
+                        borderRadius: BorderRadius.circular(15),
+                        border:
+                            Border.all(width: 1.0, color: state.validColor)),
                     child: TextFormField(
                       autovalidateMode: AutovalidateMode.always,
                       controller: _passwordController,
@@ -133,14 +134,11 @@ class _LoginFormState extends State<LoginForm> {
                         ),
                         labelText: "Пароль",
                         contentPadding: EdgeInsets.only(top: 5, bottom: 2),
-                        /*errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(4)),
-                            borderSide:
-                                BorderSide(width: 1, color: Colors.red)),*/
                       ),
                       obscureText: true,
                       autocorrect: false,
                       validator: (_) {
+                        //brdPassColor = Colors.red;
                         return !state.isPasswordValid
                             ? 'Неверный Пароль'
                             : null;
