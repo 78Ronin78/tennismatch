@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Color(0xFF201A31),
-        primaryColor: Color(0xFF201A31),
+        scaffoldBackgroundColor: Color(0xFF003366),
+        primaryColor: Color(0xFF00008B),
       ),
       title: 'TENNISMATCH',
       /*theme: ThemeData(
