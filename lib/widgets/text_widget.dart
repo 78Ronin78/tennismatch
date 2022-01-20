@@ -21,7 +21,7 @@ class Text_Widget extends StatelessWidget {
         Text(
           ' ' + signText,
           style: TextStyle(
-            color: Color(0xFF0CF4E2),
+            color: Color(0xFFADFF2F),
             fontSize: 14,
             fontWeight: FontWeight.bold,
           ),
