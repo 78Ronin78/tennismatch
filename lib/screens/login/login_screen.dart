@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tennis_match_app/blocs/login_bloc/login_bloc.dart';
 import 'package:tennis_match_app/screens/register/register_screen.dart';
-import 'package:tennis_match_app/widgets/curved_widget.dart';
 import 'package:tennis_match_app/widgets/text_widget.dart';
 
 import 'login_form.dart';
@@ -60,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                 child: Text(
                   'Забыли пароль ?',
                   style: TextStyle(
-                    color: Color(0xFF0CF4E2),
+                    color: Color(0xFFADFF2F),
                   ),
                 ),
               ),
