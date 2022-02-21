@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tennis_match_app/blocs/chat_list_bloc/chat_list_bloc.dart';
 import 'package:tennis_match_app/blocs/home_bloc/home_bloc.dart';
 import 'package:tennis_match_app/models/user.dart';
+import 'package:tennis_match_app/screens/login/login_screen.dart';
 import 'package:tennis_match_app/screens/profile/profile_screen.dart';
 
 import 'chat_list/chat_list_screen.dart';
@@ -120,9 +122,12 @@ class HomeScreen extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.exit_to_app),
                   title: Text('Выйти'),
-                  onTap: () {
-                    // Update the state of the app.
-                    // ...
+                  onTap: () async {
+                    //для лучшей интерактивности добавить snackbar
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        (Route<dynamic> route) => false);
                   },
                 ),
               ],
