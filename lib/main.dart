@@ -52,13 +52,14 @@ class MyApp extends StatelessWidget {
           }
 
           return Scaffold(
-            appBar: AppBar(),
-            body: Container(
-              child: Center(
-                child: Text('Загрузка данных...'),
-              ),
-            ),
-          );
+              //appBar: AppBar(),
+              body: Center(
+                  child: Column(mainAxisSize: MainAxisSize.min, children: [
+            CircularProgressIndicator(
+                valueColor:
+                    new AlwaysStoppedAnimation<Color>(Color(0xFFADFF2F))),
+            Text('Загрузка данных...'),
+          ])));
         },
       ),
     );
