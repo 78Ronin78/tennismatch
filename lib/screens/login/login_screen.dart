@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tennis_match_app/blocs/login_bloc/login_bloc.dart';
 import 'package:tennis_match_app/screens/register/register_screen.dart';
 import 'package:tennis_match_app/widgets/text_widget.dart';
@@ -22,12 +23,16 @@ class LoginScreen extends StatelessWidget {
               child: Column(
             children: [
               SizedBox(height: 75),
-              Image.asset(
-                'assets/images/login.png',
-                width: double.infinity,
-                height: 170,
-                fit: BoxFit.contain,
+              SvgPicture.asset(
+                'assets/images/logotype_yellow.svg',
+                height: 200,
               ),
+              // Image.asset(
+              //   'assets/images/login.png',
+              //   width: double.infinity,
+              //   height: 170,
+              //   fit: BoxFit.contain,
+              // ),
               SizedBox(height: 25),
               Container(
                 width: double.infinity,
@@ -41,6 +46,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 35, vertical: 5),
@@ -54,6 +60,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               LoginForm(),
+
               Padding(
                 padding: const EdgeInsets.all(5),
                 child: Text(
