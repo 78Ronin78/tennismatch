@@ -11,7 +11,7 @@ part 'chat_list_event.dart';
 part 'chat_list_state.dart';
 
 class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
-  final User user;
+  final UserProfile user;
 
   ChatListBloc({this.user}) : super(ChatListInitial());
 

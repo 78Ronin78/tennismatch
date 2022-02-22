@@ -11,7 +11,7 @@ part 'chat_room_event.dart';
 part 'chat_room_state.dart';
 
 class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
-  final User user;
+  final UserProfile user;
   final String title;
 
   ChatRoomBloc({this.user, this.title}) : super(ChatRoomInitial());
