@@ -8,7 +8,7 @@ abstract class AuthState extends Equatable {
 class AuthInitial extends AuthState {}
 
 class AuthSuccess extends AuthState {
-  final User user;
+  final UserProfile user;
 
   AuthSuccess({this.user});
 
