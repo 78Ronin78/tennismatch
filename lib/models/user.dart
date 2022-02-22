@@ -1,8 +1,8 @@
-class User {
+class UserProfile {
   final String id;
   final String email;
   final String name;
   final String imgUrl;
 
-  User({this.id, this.email, this.name, this.imgUrl});
+  UserProfile({this.id, this.email, this.name, this.imgUrl});
 }
