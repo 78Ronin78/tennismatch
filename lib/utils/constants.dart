@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -14,4 +15,6 @@ class Constants {
       color: Colors.transparent,
     ),
   );
+
+  final FirebaseFirestore fbFirestore = FirebaseFirestore.instance;
 }
