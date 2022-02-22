@@ -1,8 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tennis_match_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:tennis_match_app/blocs/login_bloc/login_bloc.dart';
+import 'package:tennis_match_app/locator.dart';
+import 'package:tennis_match_app/screens/register/register_screen.dart';
+import 'package:tennis_match_app/services/auth_service.dart';
+import 'package:tennis_match_app/utils/message_exception.dart';
 import 'package:tennis_match_app/widgets/button_widgets.dart';
+import 'package:tennis_match_app/widgets/snackbar_message.dart';
+import 'package:tennis_match_app/widgets/text_widget.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -12,6 +21,11 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  //AuthService fbAuth = AuthService();
+  final AuthService _authService = locator<AuthService>();
 
   bool get isPopulated =>
       _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
@@ -156,6 +170,38 @@ class _LoginFormState extends State<LoginForm> {
                       }
                     },
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Text(
+                      'Забыли пароль ?',
+                      style: TextStyle(
+                        color: Color(0xFFADFF2F),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 45),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => RegisterScreen(),
+                        ),
+                      );
+                    },
+                    child: Text_Widget(
+                        text: 'Нет учетной записи ?', signText: 'СОЗДАТЬ'),
+                  ),
+                  SizedBox(height: 45),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Text(
+                      'ИЛИ',
+                      style: TextStyle(
+                        color: Color(0xFFADFF2F),
+                      ),
+                    ),
+                  ),
+                  socialLink(),
                   /*GradientButton(
                     width: 210,
                     height: 45,
@@ -224,5 +270,59 @@ class _LoginFormState extends State<LoginForm> {
   void _onFormSubmitted() {
     _loginBloc.add(LoginWithCredentialsPressed(
         email: _emailController.text, password: _passwordController.text));
+  }
+
+  //Виджет кнопок входе через соцсети
+  Widget socialLink() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(),
+            if (Platform.isIOS)
+              Icon(
+                FontAwesomeIcons.apple,
+                color: Colors.green,
+                size: 30.0,
+              ),
+            if (Platform.isAndroid)
+              GestureDetector(
+                onTap: () => signInGoogle(),
+                child: Icon(
+                  FontAwesomeIcons.google,
+                  color: Color(0xFFADFF2F),
+                  size: 30.0,
+                ),
+              ),
+            Icon(
+              FontAwesomeIcons.facebook,
+              color: Color(0xFFADFF2F),
+              size: 30.0,
+            ),
+            Icon(
+              FontAwesomeIcons.phone,
+              color: Color(0xFFADFF2F),
+              size: 30.0,
+            ),
+            Container()
+          ],
+        ),
+      ],
+    );
+  }
+
+  //Вход с помощью google аккаунта
+  signInGoogle() async {
+    try {
+      await _authService.signInWithGoogle(context);
+    } on MessageException catch (e) {
+      print(e);
+      _scaffoldKey?.currentState?.showSnackBar(SnackBarScope.show(e.message));
+    }
   }
 }
