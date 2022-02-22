@@ -39,7 +39,7 @@ class ChatService {
           handleData:
               (QuerySnapshot snapShot, EventSink<List<ChatRoomInfo>> sink) {
     List<ChatRoomInfo> result = new List<ChatRoomInfo>();
-    snapShot.documents.forEach((doc) {
+    snapShot.docs.forEach((doc) {
       result.add(ChatRoomInfo(
         title: doc['title'],
         imgUrl: doc['imgUrl'],
@@ -60,7 +60,8 @@ class ChatService {
       StreamTransformer<DocumentSnapshot, List<String>>.fromHandlers(handleData:
           (DocumentSnapshot snapShot, EventSink<List<String>> sink) {
     if (snapShot.exists) {
-      sink.add(snapShot.data.keys.toList());
+      //sink.add(snapShot.data.keys.toList());
+      sink.add(snapShot.data());
     } else {
       sink.add([]);
     }
@@ -77,7 +78,7 @@ class ChatService {
           handleData:
               (QuerySnapshot snapShot, EventSink<List<ChatMessage>> sink) {
     List<ChatMessage> result = new List<ChatMessage>();
-    snapShot.documents.forEach((doc) {
+    snapShot.docs.forEach((doc) {
       result.add(ChatMessage(
           message: doc['message'],
           senderId: doc['senderId'],
