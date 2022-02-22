@@ -9,7 +9,7 @@ import 'chat_message_input.dart';
 import 'chat_message_item.dart';
 
 class ChatRoomScreen extends StatelessWidget {
-  final User user;
+  final UserProfile user;
   final ChatRoomInfo chatRoomInfo;
 
   const ChatRoomScreen({Key key, this.user, this.chatRoomInfo})

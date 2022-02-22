@@ -4,7 +4,7 @@ import 'package:tennis_match_app/screens/profile_setting/phone_editor.dart';
 import 'package:tennis_match_app/utils/fade_animation.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final User user;
+  final UserProfile user;
 
   const ProfileScreen({Key key, this.user}) : super(key: key);
 

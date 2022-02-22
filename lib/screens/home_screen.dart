@@ -10,7 +10,7 @@ import 'package:tennis_match_app/screens/profile/profile_screen.dart';
 import 'chat_list/chat_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  final User user;
+  final UserProfile user;
 
   const HomeScreen({Key key, this.user}) : super(key: key);
 

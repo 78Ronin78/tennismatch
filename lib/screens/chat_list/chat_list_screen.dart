@@ -9,7 +9,7 @@ import 'package:tennis_match_app/utils/constants.dart';
 import 'chat_list_item.dart';
 
 class ChatListScreen extends StatelessWidget {
-  final User user;
+  final UserProfile user;
 
   const ChatListScreen({Key key, this.user}) : super(key: key);
 
