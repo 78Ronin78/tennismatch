@@ -40,7 +40,7 @@ class AuthService {
     var firebaseUser = await _firebaseAuth.currentUser;
     print(firebaseUser.uid);
     var user = await _repositoryService.getUser(firebaseUser.uid);
-
+    print('USER: $user');
     if (user == null) {
       user = UserProfile(
         id: firebaseUser.uid,
@@ -79,7 +79,15 @@ class AuthService {
     final UserCredential authResult =
         await _firebaseAuth.signInWithCredential(credential);
     final User user = authResult.user;
-
+    //После успешной авторизации с помощью Google пользователя необходимо сохранить в базе
+    var userProfile = UserProfile(
+      id: user.uid,
+      email: user.email,
+      name: user.email.split('@')[0],
+      imgUrl:
+          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
+    );
+    _repositoryService.registerUser(userProfile);
     if (user != null) {
       assert(!user.isAnonymous);
       assert(await user.getIdToken() != null);
@@ -88,25 +96,8 @@ class AuthService {
       assert(user.uid == currentUser.uid);
 
       print('signInWithGoogle succeeded: $user');
-      //_redirectAuthUser(context);
+      _repositoryService.redirectAuthUser(context, currentUser.uid);
+      //redirectAuthUser(context);
     }
   }
-
-  //   _redirectAuthUser(BuildContext context) async {
-  //   DocumentSnapshot documentSnapshot =
-  //       await _firestore.collection('users').doc(_firebaseAuth.currentUser.uid).get();
-  //   var user;
-  //   if (documentSnapshot != null && documentSnapshot.exists) {
-  //     user = UserProfile.fromJson(documentSnapshot.data());
-  //     if (user.name != null) {
-  //       Navigator.pushNamed(context, 'tabNavigator');
-  //     } else {
-  //       Navigator.pushNamed(context, 'registrationScreen');
-  //     }
-  //   } else {
-  //     Navigator.pushNamed(context, 'registrationScreen');
-  //   }
-  // }
-
-  //AuthService fbAuth = AuthService();
 }
