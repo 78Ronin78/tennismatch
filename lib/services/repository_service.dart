@@ -18,8 +18,22 @@ class RepositoryService {
       return UserProfile(
         id: doc.data()['id'],
         name: doc.data()['name'],
+        lastName: doc.data()['lastName'],
+        phone: doc.data()['phone'],
+        skillLevel: doc.data()['skillLevel'],
+        gameExperience: doc.data()['gameExperience'],
+        country: doc.data()['country'],
+        city: doc.data()['city'],
+        birthDate: doc.data()['birthDate'],
+        gender: doc.data()['gender'],
+        rise: doc.data()['rise'],
+        weight: doc.data()['weight'],
+        weeksAvailability: doc.data()['weeksAvailability'],
+        weekendAvailability: doc.data()['weekendAvailability'],
+        ipAddresses: doc.data()['ipAddresses'],
+        about: doc.data()['about'],
         email: doc.data()['email'],
-        imgUrl: doc.data()['imgUrl'],
+        avatarUrl: doc.data()['avatarUrl'],
       );
     }
     return null;
@@ -29,8 +43,29 @@ class RepositoryService {
     _firestore.collection('users').doc(user.id).set({
       'id': user.id,
       'email': user.email,
+    });
+  }
+
+  Future<void> registerProfileData(UserProfile user) async {
+    _firestore.collection('users').doc(user.id).set({
+      'id': user.id,
+      'email': user.email,
       'name': user.name,
-      'imgUrl': user.imgUrl
+      'lastName': user.lastName,
+      'phone': user.phone,
+      'skillLevel': user.skillLevel,
+      'gameExperience': user.gameExperience,
+      'country': user.country,
+      'city': user.city,
+      'birthDate': user.birthDate,
+      'gender': user.gender,
+      'rise': user.rise,
+      'weight': user.weight,
+      'weeksAvailability': user.weeksAvailability,
+      'weekendAvailability': user.weekendAvailability,
+      'ipAddresses': user.ipAddresses,
+      'about': user.about,
+      'avatarUrl': user.avatarUrl
     });
   }
 
