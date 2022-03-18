@@ -202,47 +202,9 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ),
                   socialLink(),
-                  /*GradientButton(
-                    width: 210,
-                    height: 45,
-                    onPressed: () {
-                      if (isButtonEnabled(state)) {
-                        _onFormSubmitted();
-                      }
-                    },
-                    text: Text(
-                      'Войти',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    icon: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                    ),
-                  ),*/
                   SizedBox(
                     height: 10,
                   ),
-                  /*GradientButton(
-                    width: 220,
-                    height: 45,
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return RegisterScreen();
-                      }));
-                    },
-                    text: Text(
-                      'Зарегистрироваться',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    icon: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                    ),
-                  ),*/
                 ],
               ),
             ),
@@ -292,17 +254,27 @@ class _LoginFormState extends State<LoginForm> {
               ),
             if (Platform.isAndroid)
               GestureDetector(
-                onTap: () => signInGoogle(),
+                onTap: () {
+                  print('Вход через Google');
+                  signInGoogle();
+                },
                 child: Icon(
                   FontAwesomeIcons.google,
                   color: Color(0xFFADFF2F),
                   size: 30.0,
                 ),
               ),
-            Icon(
-              FontAwesomeIcons.facebook,
-              color: Color(0xFFADFF2F),
-              size: 30.0,
+            GestureDetector(
+              onTap: () {
+                print('Вход через VK');
+
+                signInVk();
+              },
+              child: Icon(
+                FontAwesomeIcons.vk,
+                color: Color(0xFFADFF2F),
+                size: 30.0,
+              ),
             ),
             Icon(
               FontAwesomeIcons.phone,
@@ -320,6 +292,16 @@ class _LoginFormState extends State<LoginForm> {
   signInGoogle() async {
     try {
       await _authService.signInWithGoogle(context);
+    } on MessageException catch (e) {
+      print(e);
+      _scaffoldKey?.currentState?.showSnackBar(SnackBarScope.show(e.message));
+    }
+  }
+
+  //Вход с помощью аккаунта vk.com
+  signInVk() async {
+    try {
+      await _authService.signInWithVK(context);
     } on MessageException catch (e) {
       print(e);
       _scaffoldKey?.currentState?.showSnackBar(SnackBarScope.show(e.message));
