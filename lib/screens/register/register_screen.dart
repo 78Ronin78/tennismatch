@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tennis_match_app/blocs/register_bloc/register_bloc.dart';
-import 'package:tennis_match_app/screens/login/login_screen.dart';
 import 'package:tennis_match_app/screens/register/register_form.dart';
-import 'package:tennis_match_app/widgets/curved_widget.dart';
 import 'package:tennis_match_app/widgets/text_widget.dart';
 
 class RegisterScreen extends StatelessWidget {
