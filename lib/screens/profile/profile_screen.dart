@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tennis_match_app/models/user.dart';
 import 'package:tennis_match_app/screens/profile_setting/phone_editor.dart';
@@ -302,13 +303,21 @@ class ProfileScreen extends StatelessWidget {
           children: <Widget>[
             CircleAvatar(
               radius: 50,
-              backgroundImage: NetworkImage(user.imgUrl),
+              child: CachedNetworkImage(
+                imageUrl: user.avatarUrl,
+                placeholder: (context, url) => Image.asset(
+                  'assets/images/placeholder-no-photo.png',
+                  width: 20,
+                  height: 20,
+                ),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
             ),
             SizedBox(
               height: 15,
             ),
             Text(
-              user.name,
+              user.name ?? 'user',
               style: TextStyle(
                 fontSize: 25,
                 color: Color(0xff6a515e),
@@ -316,7 +325,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             Text(
-              '@${user.name}',
+              '@${user.name ?? 'user'}',
               style: TextStyle(
                 fontSize: 15,
                 color: Color(0xffc7abba),
