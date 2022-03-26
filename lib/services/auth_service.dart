@@ -80,6 +80,7 @@ class AuthService {
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
+    print('Credential Google token: ${credential.token}');
 
     final UserCredential authResult =
         await _firebaseAuth.signInWithCredential(credential);
@@ -109,28 +110,10 @@ class AuthService {
   Future signInWithVK(context) async {
     // Initialize
     await vk.initSdk(appId);
+
     // Log in
     final res = await vk.logIn(scope: [
       VKScope.email,
-      VKScope.friends,
-      VKScope.ads,
-      VKScope.audio,
-      VKScope.docs,
-      VKScope.email,
-      VKScope.friends,
-      VKScope.groups,
-      VKScope.market,
-      VKScope.messages,
-      VKScope.notes,
-      VKScope.notifications,
-      VKScope.offline,
-      VKScope.pages,
-      VKScope.photos,
-      VKScope.stats,
-      VKScope.status,
-      VKScope.stories,
-      VKScope.video,
-      VKScope.wall,
     ]);
     // Check result
     if (res.isValue) {
@@ -141,68 +124,87 @@ class AuthService {
 
       if (data.isCanceled) {
         // User cancel log in
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Авторизация отменена'),
+          ),
+        );
       } else {
         // Logged in
 
         // Send access token to server for validation and auth
         final VKAccessToken accessToken = data.accessToken;
         print('Access token: ${accessToken.token}');
+        print('Access token: ${accessToken.token}');
+        final AuthCredential credential = EmailAuthProvider.credential(
+          email: accessToken.email,
+          password: accessToken.userId,
+        );
+        FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: accessToken.email, password: accessToken.userId)
+            .then((user) {
+          // do whatever you want to do with new user object
+          var userProfile = UserProfile(
+            id: user.user.uid,
+            email: user.user.email,
+            name: null /*user.email.split('@')[0]*/,
+            avatarUrl: null,
+          );
+          _repositoryService.registerUser(userProfile);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Успешная регистрация'),
+              backgroundColor: Color(0xFFADFF2F),
+            ),
+          );
+          if (user != null) {
+            assert(!user.user.isAnonymous);
+            assert(user.user.getIdToken() != null);
 
-        // Get profile data
-        final profile = await vk.getUserProfile();
-        print(
-            'Hello, ${profile.asValue.value.firstName}! You ID: ${profile.asValue.value.userId}');
+            final User currentUser = _firebaseAuth.currentUser;
+            assert(user.user.uid == currentUser.uid);
 
-        // Get email (since we request email permissions)
-        final email = await vk.getUserEmail();
-        print('And your email is $email');
+            print('signInWithVK succeeded: $user');
+            _repositoryService.redirectAuthUser(context, currentUser.uid);
+            //redirectAuthUser(context);
+          }
+        }).catchError((e) async {
+          //print(e); // code, message, details
+          final UserCredential authResult =
+              await _firebaseAuth.signInWithCredential(credential);
+          final User user = authResult.user;
+          //После успешной авторизации с помощью Google пользователя необходимо сохранить в базе
+          var userProfile = UserProfile(
+            id: user.uid,
+            email: user.email,
+            name: null /*user.email.split('@')[0]*/,
+            avatarUrl: null,
+          );
+          _repositoryService.registerUser(userProfile);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Успешная авторизация'),
+              backgroundColor: Color(0xFFADFF2F),
+            ),
+          );
+          if (user != null) {
+            assert(!user.isAnonymous);
+            assert(await user.getIdToken() != null);
+
+            final User currentUser = _firebaseAuth.currentUser;
+            assert(user.uid == currentUser.uid);
+
+            print('signInWithVK succeeded: $user');
+            _repositoryService.redirectAuthUser(context, currentUser.uid);
+            //redirectAuthUser(context);
+          }
+        });
       }
     } else {
       // Log in failed
       final errorRes = res.asError;
       print('Error while log in: ${errorRes.error}');
     }
-
-    // if (res.isValue) {
-    //   final VKLoginResult data = res.asValue.value;
-    //   if (data.isCanceled) {
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       SnackBar(
-    //         content: Text('Авторизация отменена'),
-    //       ),
-    //     );
-    //   } else {
-    //     //final _token = await vk.accessToken;
-    //     final _token = res.asValue.value.accessToken;
-    //     if (_token != null) {
-    //       if (res.isError) {
-    //         ScaffoldMessenger.of(context).showSnackBar(
-    //           SnackBar(
-    //             content:
-    //                 Text('Ошибка авторизации: ${res.asError.asValue.value}'),
-    //           ),
-    //         );
-    //       } else {
-    //         print('токен: $_token');
-    //         //final _profileRes = _token != null ? await vk.getUserProfile() : null;
-    //         final _profileRes = await vk.getUserProfile();
-    //         final _email = _token != null ? await vk.getUserEmail() : null;
-    //         //profile = _profileRes.asValue.value;
-    //         print('профиль: ${_profileRes.asError.error}');
-    //         ScaffoldMessenger.of(context).showSnackBar(
-    //           SnackBar(
-    //             content: Text('Авторизация успешна: $_email'),
-    //           ),
-    //         );
-    //       }
-    //     } else {
-    //       ScaffoldMessenger.of(context).showSnackBar(
-    //         SnackBar(
-    //           content: Text('Нет токена: ${res.asError.asValue.value}'),
-    //         ),
-    //       );
-    //     }
-    //   }
-    // }
   }
 }
