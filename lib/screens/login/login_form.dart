@@ -294,7 +294,12 @@ class _LoginFormState extends State<LoginForm> {
       await _authService.signInWithGoogle(context);
     } on MessageException catch (e) {
       print(e);
-      _scaffoldKey?.currentState?.showSnackBar(SnackBarScope.show(e.message));
+      //_scaffoldKey?.currentState?.showSnackBar(SnackBarScope.show(e.message));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${e.message}'),
+        ),
+      );
     }
   }
 
@@ -304,7 +309,11 @@ class _LoginFormState extends State<LoginForm> {
       await _authService.signInWithVK(context);
     } on MessageException catch (e) {
       print(e);
-      _scaffoldKey?.currentState?.showSnackBar(SnackBarScope.show(e.message));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${e.message}'),
+        ),
+      );
     }
   }
 }
