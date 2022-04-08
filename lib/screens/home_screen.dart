@@ -142,7 +142,7 @@ class HomeScreen extends StatelessWidget {
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               currentIndex: state.page,
-              backgroundColor: Theme.of(context).accentColor,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
               onTap: (idx) {
                 _pageController.jumpToPage(idx);
               },
@@ -156,10 +156,7 @@ class HomeScreen extends StatelessWidget {
                     Icons.person,
                     color: Colors.white,
                   ),
-                  title: Text('Профиль',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff6a515e))),
+                  label: 'Профиль',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
@@ -170,10 +167,7 @@ class HomeScreen extends StatelessWidget {
                     Icons.chat_bubble,
                     color: Colors.white,
                   ),
-                  title: Text('Чаты',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff6a515e))),
+                  label: 'Чаты',
                 )
               ],
             ),
