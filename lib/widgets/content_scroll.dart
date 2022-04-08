@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:gift_service_2/screens/gifts_market/gift_detail_screen.dart';
 
+// ignore: must_be_immutable
 class ContentScroll extends StatelessWidget {
   final List<String> images;
   final String title;
