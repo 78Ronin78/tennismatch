@@ -45,6 +45,9 @@ dependencies:
   flutter_svg: ^1.0.3
   font_awesome_flutter: ^9.2.0
   cached_network_image: ^3.2.0
+  mask_text_input_formatter: ^2.3.0
+  pinput: ^0.2.6
+  #google_fonts: ^2.3.0
 
   #social links
   google_sign_in: ^5.2.4

@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tennis_match_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:tennis_match_app/blocs/login_bloc/login_bloc.dart';
 import 'package:tennis_match_app/locator.dart';
+import 'package:tennis_match_app/screens/phone_auth/phone_auth_screen.dart';
 import 'package:tennis_match_app/screens/register/register_screen.dart';
 import 'package:tennis_match_app/services/auth_service.dart';
 import 'package:tennis_match_app/utils/message_exception.dart';
@@ -277,10 +278,19 @@ class _LoginFormState extends State<LoginForm> {
                 size: 30.0,
               ),
             ),
-            Icon(
-              FontAwesomeIcons.phone,
-              color: Color(0xFFADFF2F),
-              size: 30.0,
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => PhoneAuthScreen(),
+                  ),
+                );
+              },
+              child: Icon(
+                FontAwesomeIcons.phone,
+                color: Color(0xFFADFF2F),
+                size: 30.0,
+              ),
             ),
             Container()
           ],

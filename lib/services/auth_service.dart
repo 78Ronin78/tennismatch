@@ -206,4 +206,48 @@ class AuthService {
       print('Error while log in: ${errorRes.error}');
     }
   }
+
+  //Вход по номеру телефона
+  Future signInWithPhone(
+      {String phoneNumber, Function func, Function durationCode}) async {
+    try {
+      await _firebaseAuth.verifyPhoneNumber(
+          phoneNumber: phoneNumber,
+          verificationCompleted: (AuthCredential phoneAuthCredential) {},
+          verificationFailed: (FirebaseAuthException error) {
+            print('${error.message}');
+            throw MessageException('Данный номер телефона не зарегистрирован');
+          },
+          codeSent: (String verificationId, [int forceResendingToken]) {
+            func(verificationId);
+          },
+          codeAutoRetrievalTimeout: (String verificationId) {
+            durationCode();
+            print('Время истекло можно запросить повторный код');
+          });
+    } catch (e) {
+      throw MessageException('Введите корректный номер телефона');
+    }
+  }
+
+//Отправка смс-кода на сервер
+  Future<bool> submitCode(
+      {String code, String verificationId, BuildContext context}) async {
+    try {
+      PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
+          verificationId: verificationId, smsCode: code);
+      await _firebaseAuth
+          .signInWithCredential(phoneAuthCredential)
+          .then((result) {
+        if (_firebaseAuth.currentUser != null) {
+          _repositoryService.redirectAuthUser(
+              context, _firebaseAuth.currentUser.uid);
+        }
+      });
+      return true;
+    } catch (exception) {
+      return false;
+      // throw MessageException('Введен не верный код');
+    }
+  }
 }
