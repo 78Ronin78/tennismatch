@@ -52,7 +52,7 @@ class ChatRoomScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5),
                               child: ChatMessageItem(
-                                id: user.id,
+                                id: user.uid,
                                 chat: state.messages[i],
                               ),
                             )
@@ -65,7 +65,7 @@ class ChatRoomScreen extends StatelessWidget {
                       BlocProvider.of<ChatRoomBloc>(context).add(
                         SendMessage(
                           chatMessage: ChatMessage(
-                            senderId: user.id,
+                            senderId: user.uid,
                             message: message,
                             time: DateTime.now()
                                 .millisecondsSinceEpoch
