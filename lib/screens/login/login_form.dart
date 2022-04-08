@@ -10,7 +10,6 @@ import 'package:tennis_match_app/screens/register/register_screen.dart';
 import 'package:tennis_match_app/services/auth_service.dart';
 import 'package:tennis_match_app/utils/message_exception.dart';
 import 'package:tennis_match_app/widgets/button_widgets.dart';
-import 'package:tennis_match_app/widgets/snackbar_message.dart';
 import 'package:tennis_match_app/widgets/text_widget.dart';
 
 class LoginForm extends StatefulWidget {
@@ -21,8 +20,6 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   //AuthService fbAuth = AuthService();
   final AuthService _authService = locator<AuthService>();
@@ -50,7 +47,9 @@ class _LoginFormState extends State<LoginForm> {
       listener: (context, state) {
         if (state.isFailure) {
           Scaffold.of(context)
+            // ignore: deprecated_member_use
             ..removeCurrentSnackBar()
+            // ignore: deprecated_member_use
             ..showSnackBar(
               SnackBar(
                 content: Row(
@@ -67,7 +66,9 @@ class _LoginFormState extends State<LoginForm> {
 
         if (state.isSubmitting) {
           Scaffold.of(context)
+            // ignore: deprecated_member_use
             ..removeCurrentSnackBar()
+            // ignore: deprecated_member_use
             ..showSnackBar(
               SnackBar(
                 content: Row(
