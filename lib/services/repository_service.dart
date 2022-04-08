@@ -12,11 +12,14 @@ class RepositoryService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<UserProfile> getUser(String id) async {
+    print('Айдишник: $id');
     var doc = await _firestore.collection('users').doc(id).get();
+    print('Данные: ${doc.data()}');
+    if (doc.data() != null) {
+      print('условие выполняется');
 
-    if (doc.data != null) {
       return UserProfile(
-        id: doc.data()['id'],
+        uid: doc.data()['id'],
         name: doc.data()['name'],
         lastName: doc.data()['lastName'],
         phone: doc.data()['phone'],
@@ -40,15 +43,15 @@ class RepositoryService {
   }
 
   Future<void> registerUser(UserProfile user) async {
-    _firestore.collection('users').doc(user.id).set({
-      'id': user.id,
+    _firestore.collection('users').doc(user.uid).set({
+      'uid': user.uid,
       'email': user.email,
     });
   }
 
   Future<void> registerProfileData(UserProfile user) async {
-    _firestore.collection('users').doc(user.id).set({
-      'id': user.id,
+    _firestore.collection('users').doc(user.uid).set({
+      'uid': user.uid,
       'email': user.email,
       'name': user.name,
       'lastName': user.lastName,
@@ -75,9 +78,9 @@ class RepositoryService {
         await _firestore.collection('users').doc(uid).get();
     var user;
     if (documentSnapshot != null && documentSnapshot.exists) {
-      user = UserProfile.fromJson(documentSnapshot.data());
-      print('ID: ${user.id}');
-      if (user.name != null) {
+      user = documentSnapshot.data();
+      print('ID: ${user['uid']}');
+      if (user['name'] != null) {
         //Navigator.pushNamed(context, 'tabNavigator');
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
@@ -150,7 +153,7 @@ class RepositoryService {
         .doc(chatMessage.time);
 
     return _firestore.runTransaction((transaction) async {
-      await transaction.set(reference, {
+      transaction.set(reference, {
         'message': chatMessage.message,
         'time': chatMessage.time,
         'senderId': chatMessage.senderId,
@@ -163,7 +166,7 @@ class RepositoryService {
     var reference = _firestore.collection('chat_rooms').doc(title);
 
     return _firestore.runTransaction((transaction) async {
-      await transaction.update(reference, {
+      transaction.update(reference, {
         'lastMessage': chatMessage.message,
         'lastModified': chatMessage.time,
       });
