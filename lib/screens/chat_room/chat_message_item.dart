@@ -18,7 +18,7 @@ class ChatMessageItem extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 8),
           decoration: BoxDecoration(
               color: isMe
-                  ? Theme.of(context).accentColor
+                  ? Theme.of(context).colorScheme.secondary
                   : Theme.of(context).primaryColor,
               borderRadius: isMe
                   ? BorderRadius.only(
