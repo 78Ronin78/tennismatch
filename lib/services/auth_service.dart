@@ -1,4 +1,3 @@
-import 'package:async/src/result/result.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -37,18 +36,18 @@ class AuthService {
   }
 
   Future<bool> isSignedIn() async {
-    final currentUser = await _firebaseAuth.currentUser;
+    final currentUser = _firebaseAuth.currentUser;
     return currentUser != null;
   }
 
   Future<UserProfile> getUser() async {
-    var firebaseUser = await _firebaseAuth.currentUser;
-    print(firebaseUser.uid);
+    var firebaseUser = _firebaseAuth.currentUser;
+    print('Идентификатор нового пользователя: ${firebaseUser.uid}');
     var user = await _repositoryService.getUser(firebaseUser.uid);
-    print('USER: $user');
+    print(user);
     if (user == null) {
       user = UserProfile(
-        id: firebaseUser.uid,
+        uid: firebaseUser.uid,
         email: firebaseUser.email,
         name: null,
         /*firebaseUser.email.split('@')[0],*/
@@ -87,7 +86,7 @@ class AuthService {
     final User user = authResult.user;
     //После успешной авторизации с помощью Google пользователя необходимо сохранить в базе
     var userProfile = UserProfile(
-      id: user.uid,
+      uid: user.uid,
       email: user.email,
       name: null /*user.email.split('@')[0]*/,
       avatarUrl: null,
@@ -146,7 +145,7 @@ class AuthService {
             .then((user) {
           // do whatever you want to do with new user object
           var userProfile = UserProfile(
-            id: user.user.uid,
+            uid: user.user.uid,
             email: user.user.email,
             name: null /*user.email.split('@')[0]*/,
             avatarUrl: null,
@@ -176,7 +175,7 @@ class AuthService {
           final User user = authResult.user;
           //После успешной авторизации с помощью Google пользователя необходимо сохранить в базе
           var userProfile = UserProfile(
-            id: user.uid,
+            uid: user.uid,
             email: user.email,
             name: null /*user.email.split('@')[0]*/,
             avatarUrl: null,
