@@ -1,6 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:tennis_match_app/utils/constants.dart';
 
+// ignore: must_be_immutable
 class ChatMessageInput extends StatelessWidget {
   final Function onPressed;
 
