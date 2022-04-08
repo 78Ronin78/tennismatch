@@ -43,7 +43,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       await _authService.signUp(email, password);
       yield RegisterState.success();
     } catch (error) {
-      print(error);
+      print('Ошибка регистрации: $error');
       yield RegisterState.failure();
     }
   }
