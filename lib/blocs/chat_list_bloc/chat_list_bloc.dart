@@ -28,7 +28,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
       yield ChatListLoading();
 
       chatList?.cancel();
-      chatList = _chatService.getChatList(user.id).listen((list) {
+      chatList = _chatService.getChatList(user.uid).listen((list) {
         chatRoomInfoList?.cancel();
         if (list.length == 0) {
           add(ChatListLoad(chatList: []));
@@ -55,7 +55,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   }
 
   Stream<ChatListState> _mapChatListAddToState(String title) async* {
-    await _chatService.addChatList(user.id, title);
+    await _chatService.addChatList(user.uid, title);
     yield ChatListAddSucecss();
   }
 
