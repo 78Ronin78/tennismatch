@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: camel_case_types
 class Text_Widget extends StatelessWidget {
   final String text;
   final String signText;
