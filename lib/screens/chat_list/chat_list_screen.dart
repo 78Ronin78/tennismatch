@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tennis_match_app/blocs/chat_list_bloc/chat_list_bloc.dart';
@@ -153,6 +155,7 @@ class ChatListScreen extends StatelessWidget {
     }
   }
 
+  // ignore: missing_return
   Widget _showDialog(BuildContext context) {
     TextEditingController _controller = TextEditingController();
 
