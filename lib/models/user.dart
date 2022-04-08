@@ -1,5 +1,5 @@
 class UserProfile {
-  final String id; //идентификатор пользователя
+  final String uid; //идентификатор пользователя
   final String email; //email
   final String name; //имя
   final String lastName; // фамилия
@@ -20,7 +20,7 @@ class UserProfile {
   final String about; // информация о себе
 
   UserProfile(
-      {this.id,
+      {this.uid,
       this.email,
       this.name,
       this.avatarUrl,
@@ -40,7 +40,7 @@ class UserProfile {
       this.about});
 
   factory UserProfile.fromJson(Map json) => UserProfile(
-        id: json['uid'] ?? null,
+        uid: json['uid'] ?? null,
         name: json['name'] ?? null,
         lastName: json['lastName'] ?? null,
         email: json['email'] ?? null,
