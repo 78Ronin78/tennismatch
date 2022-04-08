@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tennis_match_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:tennis_match_app/blocs/register_bloc/register_bloc.dart';
 import 'package:tennis_match_app/widgets/button_widgets.dart';
-import 'package:tennis_match_app/widgets/gradient_button.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -37,7 +36,9 @@ class _LoginFormState extends State<RegisterForm> {
       listener: (context, state) {
         if (state.isFailure) {
           Scaffold.of(context)
+            // ignore: deprecated_member_use
             ..removeCurrentSnackBar()
+            // ignore: deprecated_member_use
             ..showSnackBar(
               SnackBar(
                 content: Row(
@@ -54,7 +55,9 @@ class _LoginFormState extends State<RegisterForm> {
 
         if (state.isSubmitting) {
           Scaffold.of(context)
+            // ignore: deprecated_member_use
             ..removeCurrentSnackBar()
+            // ignore: deprecated_member_use
             ..showSnackBar(
               SnackBar(
                 content: Row(
