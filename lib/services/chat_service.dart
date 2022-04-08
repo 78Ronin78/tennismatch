@@ -38,6 +38,7 @@ class ChatService {
       StreamTransformer<QuerySnapshot, List<ChatRoomInfo>>.fromHandlers(
           handleData:
               (QuerySnapshot snapShot, EventSink<List<ChatRoomInfo>> sink) {
+    // ignore: deprecated_member_use
     List<ChatRoomInfo> result = new List<ChatRoomInfo>();
     snapShot.docs.forEach((doc) {
       result.add(ChatRoomInfo(
@@ -77,6 +78,7 @@ class ChatService {
       StreamTransformer<QuerySnapshot, List<ChatMessage>>.fromHandlers(
           handleData:
               (QuerySnapshot snapShot, EventSink<List<ChatMessage>> sink) {
+    // ignore: deprecated_member_use
     List<ChatMessage> result = new List<ChatMessage>();
     snapShot.docs.forEach((doc) {
       result.add(ChatMessage(
